@@ -1,0 +1,163 @@
+mock_data_generator:
+  settings:
+    output_format: json  # Options: json or csv
+    record_count: 10000    # Number of records to generate
+    seed: 42             # Seed for reproducible data generation
+
+  domains:
+    - name: customers
+      description: Comprehensive customer data including demographic, financial, and lifestyle details.
+      fields:
+        - name: customer_id
+          type: primary_key
+          range:
+            start: 1
+            end: 10001
+
+        - name: first_name
+          type: string
+          faker: first_name
+
+        - name: last_name
+          type: string
+          faker: last_name
+
+        - name: gender
+          type: predefined_list
+          values: ["M", "F"]
+          probabilities: [0.6, 0.4]
+
+        - name: phone_number
+          type: string
+          faker: phone_number
+
+        - name: email_id
+          type: string
+          faker: email
+
+        - name: birth_date
+          type: datetime
+          format: YYYY-MM-DD
+          range:
+            start: "1950-01-01"
+            end: "2005-12-31"
+
+        - name: age
+          type: computed
+          formula: datetime.now().year - int(birth_date.split('-')[0])
+
+
+        - name: education_level
+          type: predefined_list
+          values: ["High School", "Bachelor's", "Master's", "PhD"]
+          probabilities: [0.4, 0.3, 0.2, 0.1]
+
+        - name: marital_status
+          type: predefined_list
+          values: ["Single", "Married", "Divorced", "Widowed"]
+          probabilities: [0.5, 0.4, 0.08, 0.02]
+
+        - name: number_of_children
+          type: dependency
+          dependency:
+            field: marital_status
+            values:
+              Single: 0
+              Married: {"min": 0, "max": 5}
+              Divorced: {"min": 0, "max": 3}
+              Widowed: {"min": 0, "max": 2}
+
+        - name: register_date
+          type: datetime
+          format: YYYY-MM-DD
+          range:
+            start: "2010-01-01"
+            end: "2023-12-31"
+
+        - name: occupation
+          type: predefined_list
+          values: ["Engineer", "Doctor", "Teacher", "Artist", "Business Owner", "Unemployed"]
+          probabilities: [0.3, 0.2, 0.2, 0.1, 0.1, 0.1]
+
+        - name: annual_income
+          type: dependency
+          dependency:
+            field: social_class
+            values:
+              Lower:
+                min: 20000
+                max: 30000
+              Middle:
+                min: 35000
+                max: 50000
+              Upper:
+                min: 55000
+                max: 850000
+
+        - name: hobbies
+          type: dependency
+          dependency:
+            field: gender
+            values:
+              M: [ "Sports", "Gaming", "Traveling" ]
+              F: [ "Reading", "Cooking", "Art" ]
+
+        - name: degree_of_loyalty
+          type: dependency
+          dependency:
+            field: social_class
+            values:
+              Lower: ["Bronze"]
+              Middle: ["Silver", "Gold"]
+              Upper: ["Gold", "Platinum"]
+
+        - name: social_class
+          type: predefined_list
+          values: ["Lower", "Middle", "Upper"]
+          probabilities: [0.3, 0.6, 0.1]
+
+        - name: mailing_street
+          type: string
+          faker: street_address
+
+
+        # Country with predefined list
+        - name: country
+          type: predefined_list
+          values: ["India", "USA", "Canada"]
+          probabilities: [0.5, 0.3, 0.2]
+
+        # State dependent on country
+        - name: state
+          type: dependency
+          dependency:
+            field: country
+            values:
+              India: ["Maharashtra", "Karnataka", "Tamil Nadu", "Delhi"]
+              USA: ["California", "Texas", "New York", "Florida"]
+              Canada: ["Ontario", "Quebec", "British Columbia", "Alberta"]
+
+        # City dependent on state
+        - name: city
+          type: dependency
+          dependency:
+            field: state
+            values:
+              Maharashtra: ["Mumbai", "Pune", "Nagpur", "Nashik"]
+              Karnataka: ["Bangalore", "Mysore", "Hubli"]
+              Tamil Nadu: ["Chennai", "Coimbatore", "Madurai"]
+              Delhi: ["New Delhi"]
+              California: ["Los Angeles", "San Francisco", "San Diego"]
+              Texas: ["Houston", "Austin", "Dallas"]
+              New York: ["New York City", "Buffalo", "Rochester"]
+              Florida: ["Miami", "Orlando", "Tampa"]
+              Ontario: ["Toronto", "Ottawa", "Mississauga"]
+              Quebec: ["Montreal", "Quebec City"]
+              British Columbia: ["Vancouver", "Victoria"]
+              Alberta: ["Calgary", "Edmonton"]
+
+        # Zip code
+        - name: zip_code
+          type: string
+          faker: zipcode
+
