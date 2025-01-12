@@ -176,9 +176,11 @@ Generate customer data with attributes like `social_class`, `annual_income`, and
       range:
         start: 1
         end: 10000
+
     - name: social_class
       type: predefined_list
       values: ["Lower", "Middle", "Upper"]
+      
     - name: annual_income
       type: dependency
       dependency:
@@ -198,9 +200,11 @@ Generate unique product combinations with attributes like `category_name`, `bran
       range:
         start: 1000
         end: 9000
+
     - name: category_name
       type: predefined_list
       values: ["Electronic", "Kitchen"]
+
     - name: brand_name
       type: dependency
       dependency:
