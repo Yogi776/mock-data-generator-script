@@ -82,7 +82,7 @@ def generate_order_id():
 # Initialize a counter for the while loop
 counter = 0
 
-# Generate and print order IDs with all details for 10 transactions
+# Generate and print order IDs with all details for 100 transactions
 while counter < 100:
     print(generate_order_id())
     counter += 1
