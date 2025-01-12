@@ -83,6 +83,6 @@ def generate_order_id():
 counter = 0
 
 # Generate and print order IDs with all details for 10 transactions
-while counter < 10:
+while counter < 100:
     print(generate_order_id())
     counter += 1
