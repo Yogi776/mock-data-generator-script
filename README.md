@@ -1,7 +1,3 @@
-Here’s an enhanced **README** file that highlights the features and capabilities of the provided YAML configuration for the Mock Data Generator:
-
----
-
 # Mock Data Generator Configuration Guide
 
 This guide provides a detailed overview of the **Mock Data Generator** configuration file, explaining the various features and field types. The YAML configuration enables users to easily define the structure and behavior of generated datasets across multiple domains.
@@ -253,7 +249,4 @@ Generated data will be saved in the specified format (`json` or `csv`) with name
 - Support for hierarchical or nested data structures.
 - Additional field types like `geolocation` or `boolean`.
 - Integration with external APIs for dynamic data lookups.
-
----
-
-This comprehensive README ensures that users can effectively configure and use the Mock Data Generator while leveraging all its features. Let me know if any additional details are needed!
+  
